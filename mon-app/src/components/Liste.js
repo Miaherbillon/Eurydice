@@ -1,24 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-export default function Liste() {
+export default function Liste({ select, setSelect }) {
     const [data, setData] = useState([]);
     const [cartes, setCartes] = useState([]);
     const [nouveauTableau, setNouveauTableau] = useState('');
     const [tableauActif, setTableauActif] = useState('');
+
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get('http://localhost:3010/');
                 setData(response.data);
-                setCartes(response.data); 
+                setCartes(response.data);
             } catch (error) {
                 console.error("Erreur", error);
             }
         };
         fetchData();
-    }, []);
+    }, [data]);
 
     const supprimerCarte = (id) => {
         const newCartes = cartes.filter((carte) => carte._id !== id);
@@ -36,6 +37,7 @@ export default function Liste() {
     };
 
     const afficherMessage = (elem) => {
+        setSelect(elem._id);
         console.log(`Le tableau sélectionné est : ${elem.name}`);
         setTableauActif(elem.name);
     };

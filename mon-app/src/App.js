@@ -10,6 +10,7 @@ import React, { useEffect, useState } from 'react';
 function App() {
      const [data, setData] = useState([]);
     const [cartes, setCartes] = useState([]);
+    const[select,setSelect]=useState()
 
  useEffect(() => {
         const fetchData = async () => {
@@ -27,8 +28,8 @@ function App() {
     <section>
       <h1>?</h1>  
       <div className="container">
-        <Liste  />
-         <Cartes data={data} setData={setData}/>
+        <Liste select={select} setSelect={setSelect} />
+         <Cartes data={data} setData={setData} select={select} setSelect={setSelect}/>
       </div>
     
     </section> 

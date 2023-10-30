@@ -29,7 +29,17 @@
   border-radius: 5rem;
   width: fit-content;
 }
+.buttonSupprimer:hover{
+  background-color: green;
+  cursor: pointer;
+
+}
+
 .buttonName{
   border: none;
   background-color: rgba(255, 255, 255, 0);
+}
+.buttonName:hover{
+  color: red;
+  cursor: pointer;
 }
