@@ -55,6 +55,8 @@ const supprimeTableau = async (elem) => {
   }
 };
 
+//Crée les tableaux dans la liste, supprimer, et lier le contenue dans "mes notes"
+
 
   return (
     <div>

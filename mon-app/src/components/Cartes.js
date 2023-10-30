@@ -71,6 +71,9 @@ export default function Cartes({ select }) {
       </div>
 
 
+{/* // Ne pas prendre en compte les deux autres div (en cours de création) //  */}
+{/* // Celle-ci servira pour les deux autres colones dans note */}
+
       <div>
         {lecture.note.length !== 0 &&
           lecture.note.map((elem, index) => {

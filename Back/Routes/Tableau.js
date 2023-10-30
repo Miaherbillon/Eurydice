@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.use(cors());
 
-// Read
+// Lecture
 router.get("/", async (req, res) => {
   try {
     const allListes = await TableauModel.find();
@@ -30,7 +30,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// Create
+// Création
 router.post("/create", async (req, res) => {
   try {
     const { name, note } = req.body;
@@ -65,7 +65,7 @@ router.put("/modifier/:id", async (req, res) => {
       return res.status(404).json({ message: "Élément non trouvé" });
     }
 
-    tableau.note.push(newNote); // Ajouter la nouvelle note à la fin du tableau
+    tableau.note.push(newNote); 
 
     const updatedTableau = await tableau.save();
 
@@ -98,6 +98,7 @@ router.delete("/supprimer/:id", async (req, res) => {
   }
 });
 
+
 //supprimer une note spécifique
 router.put("/supprimerNote/:id", async (req, res) => {
   try {
@@ -128,4 +129,10 @@ router.put("/supprimerNote/:id", async (req, res) => {
 module.exports = router;
 
 
-module.exports = router;
+// Modification et suppression sont à revoir, quelques difficultés, mais surmontable.
+// Car moins de pratique sur la partie Back
+
+// Demain
+// - Continuer les colonnes, les relier aux tableaux.
+// - Crée les formulaires dans les notes et enregistré les éléments dans la BD
+// - Refaire un peu de css (pour une meilleur mise en forme)
