@@ -1,0 +1,16 @@
+.Carte{
+    width: 70%;
+    border: 1px solid black;
+display: flex;
+flex-direction: column;
+justify-content: center;}
+
+
+.Carte .buttonNote{
+    width: 15vw;
+}
+.containerNote{
+    display: flex;
+    justify-content: center;
+    gap: 5rem;
+}

@@ -48,14 +48,15 @@ export default function Cartes({ select }) {
   return (
     <section className="Carte">
       <h2>Mes notes : </h2>
-      <div>
+      <section className="containerNote">
+        <div>
         {lecture.note.length !== 0 &&
           lecture.note.map((elem, index) => {
             return (
-              <div key={index} className="buttonNote">
+              <button key={index} className="buttonNote">
                 <p>{elem}</p>
                 <button onClick={() => supprimerNote(elem)}>X</button>
-              </div>
+              </button>
             );
           })}
         <div>
@@ -68,6 +69,51 @@ export default function Cartes({ select }) {
           <button onClick={ajouterNote}>Ajouter une note</button>
         </div>
       </div>
+
+
+      <div>
+        {lecture.note.length !== 0 &&
+          lecture.note.map((elem, index) => {
+            return (
+              <button key={index} className="buttonNote">
+                <p>{elem}</p>
+                <button onClick={() => supprimerNote(elem)}>X</button>
+              </button>
+            );
+          })}
+        <div>
+          <input
+            type="text"
+            value={nouvelleNote}
+            onChange={(e) => setNouvelleNote(e.target.value)}
+            placeholder="Contenu de la nouvelle note"
+          />
+          <button onClick={ajouterNote}>Ajouter une note</button>
+        </div>
+      </div>
+
+      <div>
+        {lecture.note.length !== 0 &&
+          lecture.note.map((elem, index) => {
+            return (
+              <button key={index} className="buttonNote">
+                <p>{elem}</p>
+                <button onClick={() => supprimerNote(elem)}>X</button>
+              </button>
+            );
+          })}
+        <div>
+          <input
+            type="text"
+            value={nouvelleNote}
+            onChange={(e) => setNouvelleNote(e.target.value)}
+            placeholder="Contenu de la nouvelle note"
+          />
+          <button onClick={ajouterNote}>Ajouter une note</button>
+        </div>
+      </div>
+      </section>
+      
     </section>
   );
 }
