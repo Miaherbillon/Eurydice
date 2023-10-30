@@ -21,12 +21,12 @@ router.get("/:id", async (req, res) => {
     const { id } = req.params;
     const oneListe = await TableauModel.findById(id);
     if (!oneListe) {
-      return res.status(404).json({ message: "Item not found" });
+      return res.status(404).json({ message: "Élément non trouvé" });
     }
     res.status(200).json(oneListe);
   } catch (error) {
     console.error("Une erreur est survenue :", error);
-    res.status(500).json({ message: "Server Error" });
+    res.status(500).json({ message: "Erreur Serveur" });
   }
 });
 
@@ -55,63 +55,77 @@ router.put("/modifier/:id", async (req, res) => {
     const itemId = req.params.id;
     const newNote = req.body.note;
 
-    if (itemId && newNote) {
-      const tableau = await TableauModel.findById(itemId);
-
-      if (!tableau) {
-        return res.status(404).json({ message: "Item not found" });
-      }
-
-      tableau.note.push(newNote); // Ajouter la nouvelle note à la fin du tableau
-
-      const updatedTableau = await tableau.save();
-
-      res.json(updatedTableau);
-    } else {
-      res.status(400).json({ message: "Paramètre manquant" });
+    if (!itemId || !newNote) {
+      return res.status(400).json({ message: "Paramètre manquant" });
     }
+
+    const tableau = await TableauModel.findById(itemId);
+
+    if (!tableau) {
+      return res.status(404).json({ message: "Élément non trouvé" });
+    }
+
+    tableau.note.push(newNote); // Ajouter la nouvelle note à la fin du tableau
+
+    const updatedTableau = await tableau.save();
+
+    res.json(updatedTableau);
   } catch (error) {
     console.error("Une erreur est survenue lors de la modification :", error);
     res.status(500).json({ message: "Erreur Serveur" });
   }
 });
 
-// Delete
-router.delete("/delete/:id", async (req, res) => {
+// Supprimer un tableau
+router.delete("/supprimer/:id", async (req, res) => {
   try {
     const itemId = req.params.id;
-    const noteId = req.params.noteId;
 
-    if (noteId) {
-      const tableau = await TableauModel.findById(itemId);
-
-      if (!tableau) {
-        return res.status(404).json({ message: "Item not found" });
-      }
-
-      const index = tableau.note.findIndex((note) => note._id.toString() === noteId);
-
-      if (index === -1) {
-        return res.status(404).json({ message: "Note not found" });
-      }
-
-      tableau.note.splice(index, 1); // Supprimer l'élément du tableau
-
-      const updatedTableau = await tableau.save();
-
-      res.status(200).json({ message: "Élément supprimé avec succès", updatedTableau });
-    } else {
-      const deletedItem = await TableauModel.findByIdAndDelete(itemId);
-      if (!deletedItem) {
-        return res.status(404).json({ message: "Item not found" });
-      }
-
-      res.status(200).json({ message: "Élément supprimé avec succès" });
+    if (!itemId) {
+      return res.status(400).json({ message: "ID de l'élément manquant" });
     }
+
+    const deletedTableau = await TableauModel.findByIdAndDelete(itemId);
+
+    if (!deletedTableau) {
+      return res.status(404).json({ message: "Élément non trouvé" });
+    }
+
+    res.status(200).json({ message: "Élément supprimé avec succès", deletedTableau });
   } catch (error) {
     console.error("Une erreur est survenue lors de la suppression :", error);
     res.status(500).json({ error: "Erreur interne du serveur" });
   }
 });
+
+//supprimer une note spécifique
+router.put("/supprimerNote/:id", async (req, res) => {
+  try {
+    const itemId = req.params.id;
+    const noteToRemove = req.body.note;
+
+    if (!itemId || !noteToRemove) {
+      return res.status(400).json({ message: "Paramètre manquant" });
+    }
+
+    const tableau = await TableauModel.findById(itemId);
+
+    if (!tableau) {
+      return res.status(404).json({ message: "Élément non trouvé" });
+    }
+
+    tableau.note = tableau.note.filter((note) => note !== noteToRemove);
+
+    const updatedTableau = await tableau.save();
+
+    res.status(200).json({ message: "Élément supprimé avec succès", updatedTableau });
+  } catch (error) {
+    console.error("Une erreur est survenue lors de la suppression :", error);
+    res.status(500).json({ error: "Erreur interne du serveur" });
+  }
+});
+
+module.exports = router;
+
 
 module.exports = router;

@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 export default function Cartes({ select }) {
-  const [notes, setNotes] = useState();
+  const [lecture, setLecture] = useState({ note: [] });
   const [nouvelleNote, setNouvelleNote] = useState('');
-  const [lecture, setLecture] = useState([]);
 
   console.log(select);
 
@@ -13,7 +12,7 @@ export default function Cartes({ select }) {
       try {
         const response = await axios.get(`http://localhost:3010/${select}`);
         console.log(response.data);
-        setLecture(response.data);
+        setLecture(response.data || { note: [] }); 
       } catch (error) {
         console.error("Une erreur s'est produite pendant la requête HTTP :", error);
       }
@@ -27,33 +26,38 @@ export default function Cartes({ select }) {
       const response = await axios.put(`http://localhost:3010/modifier/${select}`, {
         note: nouvelleNote,
       });
-      setNotes([...notes, response.data]);
+      setLecture({ ...lecture, note: [...lecture.note, response.data.note] }); // Update the 'lecture' state correctly
       setNouvelleNote('');
     } catch (error) {
       console.error('Erreur lors de la création de la note', error);
     }
   };
 
-  const supprimerNote=async ()=>{
+  const supprimerNote = async (elem) => {
     try {
-        
+      await axios.delete(`http://localhost:3010/supprimer/${select}`, {
+        data: { note: elem }, 
+      });
+      const updatedNotes = lecture.note.filter((note) => note !== elem);
+      setLecture({ ...lecture, note: updatedNotes });
     } catch (error) {
-        
+      console.error("Erreur lors de la suppression de la note", error);
     }
-  }
-console.log(lecture.note)
+  };
+
   return (
     <section className="Carte">
       <h2>Mes notes : </h2>
       <div>
-       {lecture.length!== 0 &&
-       lecture.note.map((elem, index) => {
-    console.log(lecture);
-    return <div key={index} className="buttonNote">
-        <p>{elem}</p>
-        <button>X</button></div>;
-})}
-     
+        {lecture.note.length !== 0 &&
+          lecture.note.map((elem, index) => {
+            return (
+              <div key={index} className="buttonNote">
+                <p>{elem}</p>
+                <button onClick={() => supprimerNote(elem)}>X</button>
+              </div>
+            );
+          })}
         <div>
           <input
             type="text"
