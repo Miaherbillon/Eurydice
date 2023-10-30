@@ -1,0 +1,35 @@
+body{
+  background-color: rgba(128, 128, 128, 0.219);
+}
+h1{
+  text-align: center;
+  font-size: 3rem;
+}
+.colone{
+  width: 80vw;
+  height: 100vh;
+  margin: auto;
+  display: flex;
+  /* border: 1px solid black; */
+ 
+}
+.colone div:first-of-type  {
+  border: 1px solid black;
+  width: 30%;
+display: flex;
+flex-direction: column;
+
+}
+.colone div:last-child{
+  border: 1px solid black;
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+
+}
+.colone h2{
+  text-align: center;
+}
+.colone button{
+  width:fit-content
+}
