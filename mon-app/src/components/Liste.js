@@ -2,23 +2,23 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 export default function Liste() {
-    // const [data, setData] = useState([]);
-    // const [cartes, setCartes] = useState([]);
+    const [data, setData] = useState([]);
+    const [cartes, setCartes] = useState([]);
     const [nouveauTableau, setNouveauTableau] = useState('');
     const [tableauActif, setTableauActif] = useState('');
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const response = await axios.get('http://localhost:3010/');
-    //             setData(response.data);
-    //             setCartes(response.data); 
-    //         } catch (error) {
-    //             console.error("Erreur", error);
-    //         }
-    //     };
-    //     fetchData();
-    // }, [data]);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('http://localhost:3010/');
+                setData(response.data);
+                setCartes(response.data); 
+            } catch (error) {
+                console.error("Erreur", error);
+            }
+        };
+        fetchData();
+    }, []);
 
     const supprimerCarte = (id) => {
         const newCartes = cartes.filter((carte) => carte._id !== id);
@@ -55,26 +55,22 @@ export default function Liste() {
             <section className="Liste">
                 <h2>Je suis dans Liste</h2>
                 <div className="ListeCarteMap">
-                    {data.map((elem, index) => {
-                        return (
-                            <div key={index}>
-                                <button className="buttonName"
-                                    onClick={() => {
-                                        afficherMessage(elem);
-                                    }}
-                                >
-                                    {elem.name}
-                                </button>
-                                <button className="buttonSupprimer"
-                                    onClick={() => {
-                                        supprimeTableau(elem);
-                                    }}
-                                >
-                                    X
-                                </button>
-                            </div>
-                        );
-                    })}
+                    {data.map((elem, index) => (
+                        <div key={index}>
+                            <button
+                                className="buttonName"
+                                onClick={() => afficherMessage(elem)}
+                            >
+                                {elem.name}
+                            </button>
+                            <button
+                                className="buttonSupprimer"
+                                onClick={() => supprimeTableau(elem)}
+                            >
+                                X
+                            </button>
+                        </div>
+                    ))}
                 </div>
 
                 <div className="nouveauTableau">

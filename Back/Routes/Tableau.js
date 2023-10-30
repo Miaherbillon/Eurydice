@@ -22,9 +22,11 @@ router.get("/", async (req, res) => {
 router.post("/create", async (req, res) => {
   try {
     const { name } = req.body;
+    const {note}=req.body
 
     const newTableau = new TableauModel({
       name,
+      note
     });
 
     const createdTableau = await newTableau.save();
@@ -34,6 +36,20 @@ router.post("/create", async (req, res) => {
     res.status(500).json({ error: "Erreur lors de la création du tableau." });
   }
 });
+
+
+
+
+//Modifier
+// router.put('/modifier/:id', (req, res) => {
+//   const modifierId = req.params.id; 
+ 
+//   const updatedResource = { id: modifierId, data: req.body };
+//   res.json(updatedResource);
+// });
+
+
+
 
 //Delete
 router.delete("/delete/:id", async (req, res) => {

@@ -22,13 +22,13 @@ function App() {
             }
         };
         fetchData();
-    }, [data]);
+    }, []);
   return (
     <section>
       <h1>?</h1>  
       <div className="container">
-        <Liste data={data} setData={setData}/>
-         <Cartes/>
+        <Liste  />
+         <Cartes data={data} setData={setData}/>
       </div>
     
     </section> 
