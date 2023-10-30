@@ -2,35 +2,33 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 export default function Liste() {
-    const [data, setData] = useState([]);
-    const [cartes, setCarte] = useState([]);
+    // const [data, setData] = useState([]);
+    // const [cartes, setCartes] = useState([]);
     const [nouveauTableau, setNouveauTableau] = useState('');
     const [tableauActif, setTableauActif] = useState('');
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get('http://localhost:3010/');
-                setData(response.data);
-            } catch (error) {
-                console.error("Erreur", error);
-            }
-        };
-        fetchData();
-    }, [data]);
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         try {
+    //             const response = await axios.get('http://localhost:3010/');
+    //             setData(response.data);
+    //             setCartes(response.data); 
+    //         } catch (error) {
+    //             console.error("Erreur", error);
+    //         }
+    //     };
+    //     fetchData();
+    // }, [data]);
 
-    console.log(data);
-
-    const supprimerCarte = (index) => {
-        const newCartes = [...cartes];
-        newCartes.splice(index, 1);
-        setCarte(newCartes);
+    const supprimerCarte = (id) => {
+        const newCartes = cartes.filter((carte) => carte._id !== id);
+        setCartes(newCartes);
     };
 
     const ajouterTableau = async () => {
         try {
-            await axios.post('http://localhost:3010/create', { name: nouveauTableau });
-            setCarte([...cartes, nouveauTableau]);
+            const response = await axios.post('http://localhost:3010/create', { name: nouveauTableau });
+            setCartes([...cartes, response.data]);
             setNouveauTableau('');
         } catch (error) {
             console.error("Erreur lors de la création du tableau", error);
@@ -38,43 +36,38 @@ export default function Liste() {
     };
 
     const afficherMessage = (elem) => {
-        console.log(`Le tableau sélectionné est : ${elem}`);
-        setTableauActif(elem);
+        console.log(`Le tableau sélectionné est : ${elem.name}`);
+        setTableauActif(elem.name);
     };
 
-      const supprimeTableau = async (elem) => {
-    try {
-        await axios.post(`http://localhost:3010/delete/${elem._id}`, { name: nouveauTableau });
-        setCarte([...cartes, nouveauTableau]);
-        setNouveauTableau('');
-    } catch (error) {
-        console.error("Erreur lors de la création du tableau", error);
-    }
-};
+    const supprimeTableau = async (elem) => {
+        try {
+            await axios.delete(`http://localhost:3010/delete/${elem._id}`);
+            const updatedCartes = cartes.filter((carte) => carte._id !== elem._id);
+            setCartes(updatedCartes);
+        } catch (error) {
+            console.error("Erreur lors de la suppression du tableau", error);
+        }
+    };
 
-
-
-
-// console.log(data[0])
     return (
         <div>
             <section className="Liste">
-                <p>Je suis dans Liste</p>
+                <h2>Je suis dans Liste</h2>
                 <div className="ListeCarteMap">
                     {data.map((elem, index) => {
-                        // console.log(elem)
                         return (
                             <div key={index}>
-                                <button
+                                <button className="buttonName"
                                     onClick={() => {
                                         afficherMessage(elem);
                                     }}
                                 >
                                     {elem.name}
                                 </button>
-                                <button
+                                <button className="buttonSupprimer"
                                     onClick={() => {
-                                        supprimerCarte(index);
+                                        supprimeTableau(elem);
                                     }}
                                 >
                                     X
@@ -94,7 +87,6 @@ export default function Liste() {
                     <button onClick={ajouterTableau}>Créer un tableau</button>
                 </div>
             </section>
-
         </div>
     );
 }

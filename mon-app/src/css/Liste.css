@@ -1,3 +1,5 @@
+
+
 .buttonListe{
   display: flex;
   flex-direction: column;
@@ -10,4 +12,24 @@
     flex-direction: column;
     gap: 1rem;
     margin: 1rem;
+
+
+}
+.ListeCarteMap div{
+      width: 10vw;
+      display: flex;
+    justify-content: space-between;
+}
+
+.buttonSupprimer{
+  background-color: red;
+  color: white;
+  border: none;
+  margin: 0.5rem;
+  border-radius: 5rem;
+  width: fit-content;
+}
+.buttonName{
+  border: none;
+  background-color: rgba(255, 255, 255, 0);
 }
