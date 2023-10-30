@@ -22,16 +22,20 @@
 }
 
 .buttonSupprimer{
-  background-color: red;
-  color: white;
-  border: none;
+  background-color: rgba(255, 255, 255, 0);
+border-radius: 5rem;
+border: 1px solid black;
   margin: 0.5rem;
   border-radius: 5rem;
   width: fit-content;
+  font-size: 1.rem;
 }
 .buttonSupprimer:hover{
-  background-color: green;
-  cursor: pointer;
+  color: white;
+  background-color: red;
+  border: none;
+     transform: scale(1.4)
+
 
 }
 
@@ -42,4 +46,28 @@
 .buttonName:hover{
   color: red;
   cursor: pointer;
+}
+.buttonNote{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border: 1px solid black;
+margin: 1rem;
+}
+.buttonNote:hover{
+     transform: scale(1.1);
+     background-color: rgba(0, 0, 0, 0.183);
+}
+.buttonNote button{
+  border: 1px solid black;
+  background-color: rgba(255, 255, 255, 0);
+border-radius: 5rem;
+}
+.buttonNote button:hover{
+  color: white;
+  background-color: red;
+  border: none;
+     transform: scale(1.4)
+
+
 }

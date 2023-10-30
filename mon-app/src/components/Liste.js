@@ -55,7 +55,7 @@ export default function Liste({ select, setSelect }) {
     return (
         <div>
             <section className="Liste">
-                <h2>Je suis dans Liste</h2>
+                <h2>Mes listes de tableaux :</h2>
                 <div className="ListeCarteMap">
                     {data.map((elem, index) => (
                         <div key={index}>
