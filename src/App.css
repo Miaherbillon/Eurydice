@@ -1,35 +1,19 @@
-body{
-  background-color: rgba(128, 128, 128, 0.219);
-}
-h1{
-  text-align: center;
-  font-size: 3rem;
-}
-.colone{
-  width: 80vw;
-  height: 100vh;
-  margin: auto;
+body{background-color: rgba(0, 0, 0, 0.107);
+width: 80vw;
+margin: auto;}
+
+section > div{
   display: flex;
-  /* border: 1px solid black; */
- 
-}
-.colone div:first-of-type  {
   border: 1px solid black;
+}
+
+section > div :first-child{
   width: 30%;
-display: flex;
-flex-direction: column;
-
+text-align: center;
 }
-.colone div:last-child{
-  border: 1px solid black;
-  width: 70%;
-  display: flex;
-  flex-direction: column;
 
-}
-.colone h2{
+section > div :last-child{
+  width:70%;
   text-align: center;
-}
-.colone button{
-  width:fit-content
+
 }
