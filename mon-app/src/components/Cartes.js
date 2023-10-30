@@ -1,4 +1,9 @@
+
 export default function Cartes () {
-    return <p>Je suis dans cartes</p>
+    return <section>
+        <p> Je suis dans cartes</p>
+    
+        
+       </section>
     
 }
