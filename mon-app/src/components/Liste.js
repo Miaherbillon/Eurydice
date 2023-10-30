@@ -45,9 +45,9 @@ export default function Liste({ select, setSelect }) {
 const supprimeTableau = async (elem) => {
     
   try {
-    console.log("ID de l'élément à supprimer :", elem._id); // Vérifiez si l'ID est correctement défini.
+    console.log("ID de l'élément à supprimer :", elem._id); 
     const response = await axios.delete(`http://localhost:3010/supprimer/${elem._id}` );
-    console.log("Réponse du serveur :", response); // Vérifiez la réponse du serveur.
+    console.log("Réponse du serveur :", response); 
     const updatedCartes = cartes.filter((carte) => carte._id !== elem._id);
     setCartes(updatedCartes);
   } catch (error) {

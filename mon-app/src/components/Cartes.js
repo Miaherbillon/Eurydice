@@ -26,7 +26,7 @@ export default function Cartes({ select }) {
       const response = await axios.put(`http://localhost:3010/modifier/${select}`, {
         note: nouvelleNote,
       });
-      setLecture({ ...lecture, note: [...lecture.note, response.data.note] }); // Update the 'lecture' state correctly
+      setLecture({ ...lecture, note: [...lecture.note, response.data.note] }); 
       setNouvelleNote('');
     } catch (error) {
       console.error('Erreur lors de la création de la note', error);
