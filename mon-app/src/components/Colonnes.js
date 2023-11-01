@@ -4,17 +4,20 @@ import Cartes from '/Users/miaherbillon/Desktop/Eurydice/mon-app/src/components/
 
 export default function Colonne({ select, data, setData, setSelect }) {
   const [nouveauName, setNouveauName] = useState('');
+  const [loading,setLoading]=useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`http://localhost:3010/${select}`);
         setData(response.data);
+  
       } catch (error) {
         console.error('Une erreur s\'est produite pendant la requête HTTP :', error);
       }
     };
     fetchData();
+      setLoading(true)
   }, [select, setData, data]);
 
   const ajouterColonne = async () => {
@@ -51,8 +54,7 @@ export default function Colonne({ select, data, setData, setSelect }) {
     }
   };
 
-  return (
-    <section className="Colonne">
+  return ( loading &&  <section className="Colonne">
       <div className="blocAjoutColonne">
         <div>
           <label>
@@ -68,16 +70,21 @@ export default function Colonne({ select, data, setData, setSelect }) {
         </div>
       </div>
       <div className="containerColonne">
-        {data && data.colonnes &&
-          data.colonnes.map((elem, index) => (
-            <div key={index}>
-              <h3> {elem.name}</h3>
-              <Cartes select={select} indexElem={elem._id} />
-              <button onClick={() => supprimerColonne(elem._id)} className="buttonDelete">
-                Supprimer cette colonne
-              </button>
-            </div>
-          ))}
+      {data && data.colonnes && data.colonnes.length > 0 ? (
+  data.colonnes.map((elem, index) => (
+    <div key={index}>
+      <h3>{elem.name}</h3>
+      <Cartes select={select} indexElem={elem._id} />
+      <button onClick={() => supprimerColonne(elem._id)} className="buttonDelete">
+        Supprimer cette colonne
+      </button>
+    </div>
+  ))
+) : (
+  <p>Aucune colonne</p>
+)}
+
+
       </div>
     </section>
   );

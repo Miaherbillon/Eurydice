@@ -8,6 +8,7 @@ export default function Liste({ select, setSelect }) {
   const [cartes, setCartes] = useState([]);
   const [nouveauTableau, setNouveauTableau] = useState('');
 
+
   useEffect(() => {
     const fetchData = async () => {
 
@@ -53,7 +54,7 @@ export default function Liste({ select, setSelect }) {
     }
   };
 
-  return (
+  return ( 
     <div>
       <section className="Liste">
         <h2>Mes tableaux</h2>

@@ -4,14 +4,16 @@ import axios from 'axios';
 export default function Cartes({ select, indexElem }) {
   const [lecture, setLecture] = useState();
   const [affiche, setAffiche] = useState(false);
+  const [loading,setLoading]=useState(false)
 
-  console.log(indexElem);
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`http://localhost:3010/${select}`);
         setLecture(response.data);
+        setLoading(true)
       } catch (error) {
         console.error("Une erreur s'est produite pendant la requête HTTP :", error);
       }
@@ -45,8 +47,7 @@ export default function Cartes({ select, indexElem }) {
     return <div>Chargement en cours...</div>;
   }
 
-  return (
-    <section className="Note">
+  return ( loading && <section className="Note">
       <h2>Mes notes :</h2>
       <section>
         <div>
