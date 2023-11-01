@@ -1,15 +1,15 @@
 import './App.css';
 import './css/Liste.css'
-import './css/Cartes.css'
+import './css/Carte.css'
+import './css/Colonne.css'
 import Liste from "./components/Liste.js"
-import Cartes from "./components/Cartes.js"
+import Colonne from "/Users/miaherbillon/Desktop/Eurydice/mon-app/src/components/Colonnes.js"
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
 
 function App() {
      const [data, setData] = useState([]);
-    const [cartes, setCartes] = useState([]);
     const[select,setSelect]=useState()
 
  useEffect(() => {
@@ -17,7 +17,6 @@ function App() {
             try {
                 const response = await axios.get('http://localhost:3010/');
                 setData(response.data);
-                setCartes(response.data); 
             } catch (error) {
                 console.error("Erreur", error);
             }
@@ -25,14 +24,13 @@ function App() {
         fetchData();
     }, []);
   return (
-    <section>
-      <h1>?</h1>  
+    <>
       <div className="container">
         <Liste select={select} setSelect={setSelect} />
-         <Cartes data={data} setData={setData} select={select} setSelect={setSelect}/>
+         <Colonne data={data} setData={setData} select={select} setSelect={setSelect}/>
       </div>
     
-    </section> 
+    </> 
   );
 }
 

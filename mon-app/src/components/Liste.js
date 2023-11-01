@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+
+
 export default function Liste({ select, setSelect }) {
   const [data, setData] = useState([]);
   const [cartes, setCartes] = useState([]);
   const [nouveauTableau, setNouveauTableau] = useState('');
-  const [tableauActif, setTableauActif] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
+
       try {
         const response = await axios.get('http://localhost:3010/');
         setData(response.data);
@@ -18,13 +20,9 @@ export default function Liste({ select, setSelect }) {
       }
     };
     fetchData();
-  }, [nouveauTableau]); 
+  }, [nouveauTableau, cartes]);
 
-  const supprimerCarte = (id) => {
-    const newCartes = cartes.filter((carte) => carte._id !== id);
-    setCartes(newCartes);
-  };
-
+  // Ajouter un nouveau tableau
   const ajouterTableau = async () => {
     try {
       const response = await axios.post('http://localhost:3010/create', { name: nouveauTableau });
@@ -35,46 +33,37 @@ export default function Liste({ select, setSelect }) {
     }
   };
 
+  // Sélectionner un tableau
   const afficherMessage = (elem) => {
     setSelect(elem._id);
     console.log(`Le tableau sélectionné est : ${elem.name}`);
-    setTableauActif(elem.name);
   };
 
-
-const supprimeTableau = async (elem) => {
-    
-  try {
-    console.log("ID de l'élément à supprimer :", elem._id); 
-    const response = await axios.delete(`http://localhost:3010/supprimer/${elem._id}` );
-    console.log("Réponse du serveur :", response); 
-    const updatedCartes = cartes.filter((carte) => carte._id !== elem._id);
-    setCartes(updatedCartes);
-  } catch (error) {
-    console.error("Erreur lors de la suppression du tableau", error);
-  }
-};
-
-//Crée les tableaux dans la liste, supprimer, et lier le contenue dans "mes notes"
-
+  // Supprimer un tableau
+  const supprimeTableau = async (elem) => {
+            window.location.reload();
+    try {
+      console.log("ID de l'élément à supprimer :", elem._id);
+      const response = await axios.delete(`http://localhost:3010/supprimer/${elem._id}`);
+      console.log("Réponse du serveur :", response);
+      const updatedCartes = cartes.filter((carte) => carte._id !== elem._id);
+      setCartes(updatedCartes);
+    } catch (error) {
+      console.error("Erreur lors de la suppression du tableau", error);
+    }
+  };
 
   return (
     <div>
       <section className="Liste">
-        <h2>Mes listes de tableaux :</h2>
+        <h2>Mes tableaux</h2>
         <div className="ListeCarteMap">
           {data.map((elem, index) => (
             <div key={elem._id}>
-              <button
-                className="buttonName"
-                onClick={() => afficherMessage(elem)}
-              >
+              <button className="buttonName" onClick={() => afficherMessage(elem)}>
                 {elem.name}
               </button>
-              <button
-                className="buttonSupprimer"
-                onClick={() => supprimeTableau(elem)}
-              >
+              <button onClick={() => supprimeTableau(elem)}>
                 X
               </button>
             </div>
@@ -94,6 +83,3 @@ const supprimeTableau = async (elem) => {
     </div>
   );
 }
-
-
-

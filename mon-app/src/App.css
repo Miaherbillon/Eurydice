@@ -1,13 +1,22 @@
+body{
+  background-color: rgba(24, 93, 146, 0.614);
+  margin-top: 0;
+  padding: 0;
+}
+button{cursor: pointer;}
+
 .container{
   display: flex;
   width: 80vw;
-  margin: auto;
-  gap: 10rem;
+  margin: 0 auto;
+  gap: 5rem;
+    color:white
+
 
 }
 
 .Liste h2, .Carte h2{
   text-align: center;
-  margin-bottom: 5rem;
-  color:red
+  color:white
+
 }

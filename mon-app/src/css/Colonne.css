@@ -1,0 +1,72 @@
+.Colonne{
+  height: fit-content;
+  width: 70vw;
+  padding: 5rem 0;
+  color: black;
+  gap: 5rem;
+  border: 1rem solid white;
+  background-color: rgba(255, 255, 255, 0.457);
+}
+
+.blocAjoutColonne > div{
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+top:0;
+width: 55%;
+box-sizing: border-box;
+  justify-content: center;
+  text-align: center;
+  text-decoration: underline;
+  text-decoration-style: double;
+  position: fixed;
+  background-color: white;
+}
+
+.blocAjoutColonne input{
+  width: 100%;
+  border: none;
+  margin:1rem 0 ;
+  text-align: center;
+
+
+
+}
+.blocAjoutColonne button{
+background-color: rgb(112, 155, 187);
+color: white;
+width: 100%;
+  border: none;
+  border-radius: 1rem;
+
+}
+.blocAjoutColonne button:hover{
+  background-color:rgba(112, 154, 187, 0.461);
+  color: black
+}
+.containerColonne{
+  display: flex;
+  margin-top: 3rem;
+  gap: 5rem;
+  flex-wrap: wrap;
+}
+.containerColonne h3{
+  text-align: center;
+}
+
+.containerColonne{
+justify-content: center;
+}
+.containerColonne > div{
+    background-color: antiquewhite;
+  margin: 2rem;
+  width: 20vw;
+    border: 1px solid black;
+    border-radius: 2rem;
+    padding: 2rem;
+    box-sizing: border-box;
+
+}
+.buttonDelete{
+  margin: 2rem 0;
+}
