@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import ListeCarte from '/Users/miaherbillon/Desktop/Eurydice/mon-app/src/components/Cartes.js';
+import ListeCarte from '../components/Cartes.js';
 
 export default function CarteId({ select }) {
   const [data, setData] = useState({ name: '', colonnes: [] });

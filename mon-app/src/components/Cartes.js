@@ -6,7 +6,6 @@ export default function Cartes({ select, indexElem }) {
   const [affiche, setAffiche] = useState(false);
   const [loading,setLoading]=useState(false)
 
-console.log(indexElem)
 
   useEffect(() => {
     const fetchData = async () => {

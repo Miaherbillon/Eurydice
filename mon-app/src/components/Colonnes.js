@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Cartes from '/Users/miaherbillon/Desktop/Eurydice/mon-app/src/components/CreateCarte.js';
+import Cartes from '../components/Cartes.js';
 
 export default function Colonne({ select, data, setData, setSelect }) {
   const [nouveauName, setNouveauName] = useState('');
   const [loading,setLoading]=useState(false)
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`http://localhost:3010/${select}`);
-        setData(response.data);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get(`http://localhost:3010/${select}`);
+  //       setData(response.data);
   
-      } catch (error) {
-        console.error('Une erreur s\'est produite pendant la requête HTTP :', error);
-      }
-    };
-    fetchData();
-      setLoading(true)
-  }, [select, setData, data]);
+  //     } catch (error) {
+  //       console.error('Une erreur s\'est produite pendant la requête HTTP :', error);
+  //     }
+  //   };
+  //   fetchData();
+  //     setLoading(true)
+  // }, [select, setData, data]);
 
   const ajouterColonne = async () => {
     try {

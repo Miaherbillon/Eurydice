@@ -3,7 +3,7 @@ import './css/Liste.css'
 import './css/Carte.css'
 import './css/Colonne.css'
 import Liste from "./components/Liste.js"
-import Colonne from "/Users/miaherbillon/Desktop/Eurydice/mon-app/src/components/Colonnes.js"
+import Colonne from "./components/Colonnes.js"
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
