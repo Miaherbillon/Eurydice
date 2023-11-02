@@ -3,6 +3,7 @@
   position: sticky;
   top: 0;
   padding: 2rem;
+  width: 20vw;
 }
 
 
@@ -35,8 +36,9 @@
   background-color:rgb(112, 155, 187)
 }
 
+
 .nouveauTableau input , .nouveauTableau button{
-  width: 90%;
   border: none;
 text-align: center;
+margin: 0.5rem;
 }

@@ -6,7 +6,7 @@ export default function Cartes({ select, indexElem }) {
   const [affiche, setAffiche] = useState(false);
   const [loading,setLoading]=useState(false)
 
-
+console.log(indexElem)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,6 +21,8 @@ export default function Cartes({ select, indexElem }) {
 
     fetchData();
   }, [select, lecture]);
+
+// console.log(lecture)
 
   const supprimerNote = async (elem) => {
     try {
@@ -47,11 +49,18 @@ export default function Cartes({ select, indexElem }) {
     return <div>Chargement en cours...</div>;
   }
 
+// console.log(lecture)
+
   return ( loading && <section className="Note">
       <h2>Mes notes :</h2>
       <section>
         <div>
-          {lecture &&
+
+          {lecture.colonnes.map((elem)=>{
+            // console.log(elem)
+            return <p>?</p>
+          })}
+          {/* {lecture &&
             lecture.colonnes &&
             lecture.colonnes.length !== 0 &&
             lecture.colonnes.map((col, index) => (
@@ -75,7 +84,7 @@ export default function Cartes({ select, indexElem }) {
                   </div>
                 ))}
               </div>
-            ))}
+            ))} */}
         </div>
       </section>
     </section>

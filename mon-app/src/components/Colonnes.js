@@ -71,15 +71,16 @@ export default function Colonne({ select, data, setData, setSelect }) {
       </div>
       <div className="containerColonne">
       {data && data.colonnes && data.colonnes.length > 0 ? (
-  data.colonnes.map((elem, index) => (
-    <div key={index}>
+  data.colonnes.map((elem, index) => {
+console.log(" ici le elem", elem)
+return <div key={index}>
       <h3>{elem.name}</h3>
       <Cartes select={select} indexElem={elem._id} />
       <button onClick={() => supprimerColonne(elem._id)} className="buttonDelete">
         Supprimer cette colonne
       </button>
     </div>
-  ))
+ } )
 ) : (
   <p>Aucune colonne</p>
 )}
