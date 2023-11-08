@@ -20,10 +20,10 @@ const todoReducer = (state, action) => {
         ...state,
         listColonnes: action.payload,
       };
-    case "setNote":
+    case "setListNote":
       return {
         ...state,
-        notes: action.payload,
+        listNotes: action.payload,
       };
     default:
       return state;

@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useTodoProvider } from '../Context.jsx';
+import CreateNote from "./CreateCarte.jsx"
+
+import Notes from "./Cartes.jsx"
 
 export default function Colonnes({ colonnes, id }) {
   const [nouveauName, setNouveauName] = useState('');
   const[ context, dispatch]  = useTodoProvider();
 
-console.log("context",colonnes)
+console.log("context",id)
 
   useEffect(() => { 
     const fetchData = async () => {
@@ -29,7 +32,7 @@ const ajouterColonne = async () => {
     });
 
     console.log(resp.data);
-    // Gérer la réponse ici si nécessaire
+
     const nouvelleColonne = [...colonnes, { name: resp.data.name, _id: resp.data._id }];
     dispatch({ type: 'setListColonnes', payload: nouvelleColonne });
     setNouveauName('');
@@ -73,20 +76,22 @@ const ajouterColonne = async () => {
           </label>
         </div>
       </div>
-      <div className="containerColonnes">
-        {colonnes && colonnes.length > 0 ? (
-          colonnes.map((colonne) => (
-            <div key={colonne._id}>
-              <h3>{colonne.name}</h3>
-              <button onClick={() => supprimerColonne(colonne)} className="buttonDelete">
-                Supprimer cette colonne
-              </button>
-            </div>
-          ))
-        ) : (
-          <p>Aucune colonne</p>
-        )}
+     <div className="containerColonnes">
+  {colonnes && colonnes.length > 0 ? (
+    colonnes.map((colonne) => (
+      <div key={colonne._id}>
+        <h3>{colonne.name}</h3>
+        <CreateNote colonneId={colonne._id} tableauId={id}/>
+        <button onClick={() => supprimerColonne(colonne)} className="buttonDelete">
+          Supprimer cette colonne
+        </button>
       </div>
+    ))
+  ) : (
+    <p>Aucune colonne</p>
+  )}
+</div>
+
     </section>
   );
 }

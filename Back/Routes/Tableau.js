@@ -34,6 +34,34 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+router.get("/lireNotes/:colonneId", async (req, res) => {
+  try {
+    const { colonneId } = req.params;
+
+    if (!colonneId) {
+      return res.status(400).json({ message: "ID de la colonne manquant" });
+    }
+
+    const tableau = await TableauModel.findOne({ "colonnes._id": colonneId });
+
+    if (!tableau) {
+      return res.status(404).json({ message: "Tableau non trouvé" });
+    }
+
+    const colonne = tableau.colonnes.find((col) => col._id.toString() === colonneId);
+
+    if (!colonne) {
+      return res.status(404).json({ message: "Colonne non trouvée" });
+    }
+
+    res.status(200).json(colonne.notes);
+  } catch (error) {
+    console.error("Une erreur est survenue lors de la lecture des notes :", error);
+    res.status(500).json({ error: "Erreur interne du serveur" });
+  }
+});
+
+
 router.post("/create", async (req, res) => {
   try {
     const { name, colonnes, notes } = req.body;
@@ -135,9 +163,9 @@ router.delete("/supprimerColonne", async (req, res) => {
 router.put("/ajouterNote/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const { colonneId, nouvelleNote, quantity, color, name } = req.body;
+    const { colonneId, name, quantity, color } = req.body;
 
-    if (!id || !colonneId || !nouvelleNote || !quantity || !color || !name) {
+    if (!id || !colonneId || !name || !quantity || !color) {
       return res.status(400).json({ message: "Paramètre manquant" });
     }
 
@@ -163,12 +191,13 @@ router.put("/ajouterNote/:id", async (req, res) => {
 
     const updatedTableau = await tableau.save();
 
-    res.status(200).json({ message: "Note ajoutée avec succès", updatedTableau });
+    res.status(200).json({ nouvelleNoteObj });
   } catch (error) {
     console.error("Une erreur est survenue lors de l'ajout de la note :", error);
     res.status(500).json({ error: "Erreur interne du serveur" });
   }
 });
+
 
 router.put("/supprimerNote/:id", async (req, res) => {
   try {
@@ -207,6 +236,7 @@ router.put("/supprimerNote/:id", async (req, res) => {
     console.error("Une erreur est survenue lors de la suppression de la note :", error);
     res.status(500).json({ error: "Erreur interne du serveur" });
   }
-});
+}
+);
 
 module.exports = router;

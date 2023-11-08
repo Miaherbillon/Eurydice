@@ -4,7 +4,8 @@ const INITIAL_STATE = {
     nom: 'Nom'
   },
   listTab: [],
-  listColonnes: []
+  listColonnes: [],
+  listNotes:[]
 };
 
 export default INITIAL_STATE;

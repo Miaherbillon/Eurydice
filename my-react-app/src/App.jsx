@@ -13,7 +13,6 @@ useEffect(() => {
     try {
       const response = await axios.get('http://localhost:3010/');
       dispatch({ type: "setlistTab", payload: response.data });
-      fetchData2(response.data.selectedTab._id);
     } catch (error) {
       console.error("Erreur", error);
     }

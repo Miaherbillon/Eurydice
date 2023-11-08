@@ -2,47 +2,45 @@ import React, { useState } from 'react';
 import { useTodoProvider } from '../Context.jsx';
 import axios from 'axios';
 
-export default function CarteId({ colonne, id }) {
-  const [data, setData] = useState({ name: '', colonnes: [] });
+import Note from "./Cartes.jsx"
+
+export default function CarteId({ colonneId, tableauId }) {
   const [nouvelleNoteName, setNouvelleNoteName] = useState('');
   const [nouvelleNoteQuantity, setNouvelleNoteQuantity] = useState(0);
   const [nouvelleNoteColor, setNouvelleNoteColor] = useState('');
   const [context, dispatch] = useTodoProvider();
 
-  console.log('id colonne', colonne);
+  console.log("create carte",context.listNotes);
 
   const ajouterNote = async () => {
     try {
-      const response = await axios.put(`http://localhost:3010/ajouterNote/${colonne._id}`, {
-      data: {
-          colonneId: colonne[0]._id,
-          name:nouvelleNoteName,
-          quantity:nouvelleNoteQuantity,
-          color:nouvelleNoteColor,
-        }
-      
-      // nouvelleNote: [{
-        //   name: nouvelleNoteName,
-        //   quantity: nouvelleNoteQuantity,
-        //   color: nouvelleNoteColor,
-        // }]
-        
+      const response = await axios.put(`http://localhost:3010/ajouterNote/${tableauId}`, {
+        colonneId: colonneId,
+        name: nouvelleNoteName,
+        quantity: nouvelleNoteQuantity,
+        color: nouvelleNoteColor,
       });
+      console.log("createcarte",response.data.nouvelleNoteObj);
 
       if (response.data) {
-        console.log('Note ajoutée avec succès.');
         setNouvelleNoteName('');
         setNouvelleNoteQuantity(0);
         setNouvelleNoteColor('');
-        setData(response.data.updatedTableau);
+          
+        const nouvelleNote = [...context.listNotes, {data: response.data.nouvelleNoteObj }];
+
+        dispatch({ type: 'setListNotes', payload: nouvelleNote });
       }
     } catch (error) {
       console.error("Erreur lors de l'ajout de la note", error);
     }
   };
 
+
+
   return (
     <section className="CarteId">
+     
       <div>
         <form>
           <input
@@ -67,7 +65,8 @@ export default function CarteId({ colonne, id }) {
             Ajouter une note
           </button>
         </form>
-      </div>
+      </div> 
+      <Note colonneId={colonneId}/>
     </section>
   );
 }
