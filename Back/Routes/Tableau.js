@@ -199,44 +199,44 @@ router.put("/ajouterNote/:id", async (req, res) => {
 });
 
 
-router.put("/supprimerNote/:id", async (req, res) => {
+router.put("/supprimerNote/:tableauId/:colonneId", async (req, res) => {
   try {
-    const { id } = req.params;
+    const { tableauId, colonneId } = req.params;
     const { note } = req.body;
 
-    if (!id || !note) {
-      return res.status(400).json({ message: "ID de l'élément ou de la note manquant" });
+    if (!tableauId || !colonneId || !note) {
+      return res.status(400).json({ message: "ID du tableau, de la colonne ou de la note manquant" });
     }
 
-    const tableau = await TableauModel.findById(id);
+    const tableau = await TableauModel.findById(tableauId);
 
     if (!tableau) {
       return res.status(404).json({ message: "Tableau non trouvé" });
     }
 
-    let found = false;
-    for (const colonne of tableau.colonnes) {
-      colonne.notes = colonne.notes.filter((n) => {
-        if (n.name === note.name) {
-          found = true;
-          return false;
-        }
-        return true;
-      });
+    const colonne = tableau.colonnes.id(colonneId);
+
+    if (!colonne) {
+      return res.status(404).json({ message: "Colonne non trouvée dans le tableau" });
     }
 
-    if (!found) {
-      return res.status(404).json({ message: "Note non trouvée" });
-    }
+    colonne.notes = colonne.notes.filter((n) => {
+      if (n.name === note.name) {
+        return false;
+      }
+      return true;
+    });
 
-    const updatedTableau = await tableau.save();
+    await tableau.save();
 
-    res.status(200).json({ message: "Note supprimée avec succès", updatedTableau });
+    res.status(200).json({ message: "Note supprimée avec succès", tableau });
   } catch (error) {
     console.error("Une erreur est survenue lors de la suppression de la note :", error);
     res.status(500).json({ error: "Erreur interne du serveur" });
   }
-}
-);
+});
+
+
+
 
 module.exports = router;

@@ -3,26 +3,24 @@ import axios from 'axios';
 import { useTodoProvider } from '../Context.jsx';
 import CreateNote from "./CreateCarte.jsx"
 
-import Notes from "./Cartes.jsx"
 
 export default function Colonnes({ colonnes, id }) {
   const [nouveauName, setNouveauName] = useState('');
   const[ context, dispatch]  = useTodoProvider();
 
-console.log("context",id)
+console.log("context",context)
 
   useEffect(() => { 
     const fetchData = async () => {
       try {
         const response = await axios.get(`http://localhost:3010/${id}`);
-        console.log("effect",response.data);
         dispatch({ type: 'setListColonnes', payload: response.data.colonnes });
       } catch (error) {
         console.error('Erreur lors de la récupération des colonnes', error);
       }
     };
     fetchData();
-  }, [dispatch]);
+  }, [context.listNotes]);
 
 const ajouterColonne = async () => {
   try {

@@ -10,7 +10,7 @@ export default function CarteId({ colonneId, tableauId }) {
   const [nouvelleNoteColor, setNouvelleNoteColor] = useState('');
   const [context, dispatch] = useTodoProvider();
 
-  console.log("create carte",context.listNotes);
+  // console.log("create carte",context.listNotes);
 
   const ajouterNote = async () => {
     try {
@@ -20,7 +20,7 @@ export default function CarteId({ colonneId, tableauId }) {
         quantity: nouvelleNoteQuantity,
         color: nouvelleNoteColor,
       });
-      console.log("createcarte",response.data.nouvelleNoteObj);
+      // console.log("createcarte",response.data.nouvelleNoteObj);
 
       if (response.data) {
         setNouvelleNoteName('');
@@ -66,7 +66,7 @@ export default function CarteId({ colonneId, tableauId }) {
           </button>
         </form>
       </div> 
-      <Note colonneId={colonneId}/>
+      <Note colonneId={colonneId} tableauId={tableauId}/>
     </section>
   );
 }
