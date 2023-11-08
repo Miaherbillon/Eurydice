@@ -1,38 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useTodoProvider } from '../Context.jsx';
 import axios from 'axios';
-import ListeCarte from '../components/Cartes.js';
 
-export default function CarteId({ select }) {
+export default function CarteId({ colonne, id }) {
   const [data, setData] = useState({ name: '', colonnes: [] });
   const [nouvelleNoteName, setNouvelleNoteName] = useState('');
   const [nouvelleNoteQuantity, setNouvelleNoteQuantity] = useState(0);
   const [nouvelleNoteColor, setNouvelleNoteColor] = useState('');
+  const [context, dispatch] = useTodoProvider();
 
-  useEffect(() => {
-    if (!select) return;
-
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`http://localhost:3010/${select}`);
-        setData(response.data);
-      } catch (error) {
-        console.error('Une erreur s\'est produite pendant la requête HTTP :', error);
-      }
-    };
-
-    fetchData();
-
-  }, [select]);
+  console.log('id colonne', colonne);
 
   const ajouterNote = async () => {
     try {
-      const response = await axios.put(`http://localhost:3010/ajouterNote/${select}`, {
-        colonneId: data.colonnes[0]._id, 
-        nouvelleNote: {
-          name: nouvelleNoteName,
-          quantity: nouvelleNoteQuantity,
-          color: nouvelleNoteColor,
-        },
+      const response = await axios.put(`http://localhost:3010/ajouterNote/${colonne._id}`, {
+      data: {
+          colonneId: colonne[0]._id,
+          name:nouvelleNoteName,
+          quantity:nouvelleNoteQuantity,
+          color:nouvelleNoteColor,
+        }
+      
+      // nouvelleNote: [{
+        //   name: nouvelleNoteName,
+        //   quantity: nouvelleNoteQuantity,
+        //   color: nouvelleNoteColor,
+        // }]
+        
       });
 
       if (response.data) {
@@ -40,18 +34,15 @@ export default function CarteId({ select }) {
         setNouvelleNoteName('');
         setNouvelleNoteQuantity(0);
         setNouvelleNoteColor('');
-        setData(response.data.updatedTableau); 
-        
+        setData(response.data.updatedTableau);
       }
     } catch (error) {
-      console.error('Erreur lors de l\'ajout de la note', error);
+      console.error("Erreur lors de l'ajout de la note", error);
     }
-
   };
 
   return (
     <section className="CarteId">
-      
       <div>
         <form>
           <input
@@ -63,7 +54,7 @@ export default function CarteId({ select }) {
           <input
             type="number"
             value={nouvelleNoteQuantity}
-            onChange={(e) => setNouvelleNoteQuantity(parseInt(e.target.value))}
+            onChange={(e) => setNouvelleNoteQuantity(parseInt(e.target.value, 10))}
             placeholder="Quantité de la nouvelle note"
           />
           <input
@@ -77,7 +68,6 @@ export default function CarteId({ select }) {
           </button>
         </form>
       </div>
-      <ListeCarte select={select} />
     </section>
   );
 }

@@ -1,16 +1,19 @@
 const express = require("express");
 const cors = require("cors");
+const mongoose = require('mongoose');
 const TableauModel = require("../Models/TableauModel");
 const router = express.Router();
 
 router.use(cors());
 router.use(express.json());
 
-// Lecture
 router.get("/", async (req, res) => {
   try {
     const allListes = await TableauModel.find();
-    res.json(allListes);
+    const selectListes = allListes.map(tab => {
+      return { name: tab.name, _id: tab._id };
+    });
+    res.json(selectListes);
   } catch (error) {
     console.error("Une erreur est survenue lors de la lecture :", error);
     res.status(500).json({ error: "Erreur lors de la lecture." });
@@ -31,14 +34,14 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// Création
 router.post("/create", async (req, res) => {
   try {
-    const { name, colonnes } = req.body;
+    const { name, colonnes, notes } = req.body;
 
     const newTableau = new TableauModel({
       name,
       colonnes,
+      notes,
     });
 
     const createdTableau = await newTableau.save();
@@ -50,13 +53,12 @@ router.post("/create", async (req, res) => {
   }
 });
 
-// Modifier
 router.put("/modifier/:id", async (req, res) => {
   try {
     const itemId = req.params.id;
-    const { colonnes } = req.body;
+    const { name } = req.body;
 
-    if (!itemId || !colonnes) {
+    if (!itemId || !name) {
       return res.status(400).json({ message: "Paramètre manquant" });
     }
 
@@ -66,19 +68,24 @@ router.put("/modifier/:id", async (req, res) => {
       return res.status(404).json({ message: "Élément non trouvé" });
     }
 
-    // Ajout de la colonne à l'objet existant
-    tableau.colonnes.push(colonnes);
+    const nouvelleColonne = {
+      name: name,
+      notes: []
+    };
+
+    tableau.colonnes.push(nouvelleColonne);
 
     const updatedTableau = await tableau.save();
+    const insertedId = nouvelleColonne._id;
 
-    res.json(updatedTableau);
+
+    res.json({ _id: insertedId, ...nouvelleColonne });
   } catch (error) {
     console.error("Une erreur est survenue lors de la modification :", error);
     res.status(500).json({ message: "Erreur Serveur" });
   }
 });
 
-// Supprimer un tableau
 router.delete("/supprimer/:id", async (req, res) => {
   try {
     const itemId = req.params.id;
@@ -100,7 +107,6 @@ router.delete("/supprimer/:id", async (req, res) => {
   }
 });
 
-// Supprimer une colonne spécifique
 router.delete("/supprimerColonne", async (req, res) => {
   try {
     const { id, colonneId } = req.body;
@@ -126,13 +132,12 @@ router.delete("/supprimerColonne", async (req, res) => {
   }
 });
 
-// Ajouter une note à une colonne spécifique
 router.put("/ajouterNote/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const { colonneId, nouvelleNote } = req.body;
+    const { colonneId, nouvelleNote, quantity, color, name } = req.body;
 
-    if (!id || !colonneId || !nouvelleNote) {
+    if (!id || !colonneId || !nouvelleNote || !quantity || !color || !name) {
       return res.status(400).json({ message: "Paramètre manquant" });
     }
 
@@ -148,7 +153,13 @@ router.put("/ajouterNote/:id", async (req, res) => {
       return res.status(404).json({ message: "Colonne non trouvée" });
     }
 
-    colonne.notes.push(nouvelleNote);
+    const nouvelleNoteObj = {
+      name: name,
+      quantity: quantity,
+      color: color
+    };
+
+    colonne.notes.push(nouvelleNoteObj);
 
     const updatedTableau = await tableau.save();
 
@@ -159,7 +170,6 @@ router.put("/ajouterNote/:id", async (req, res) => {
   }
 });
 
-// Supprimer une note spécifique
 router.put("/supprimerNote/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -198,6 +208,5 @@ router.put("/supprimerNote/:id", async (req, res) => {
     res.status(500).json({ error: "Erreur interne du serveur" });
   }
 });
-
 
 module.exports = router;
