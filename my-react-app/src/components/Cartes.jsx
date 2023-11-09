@@ -4,10 +4,9 @@ import axios from "axios";
 
 export default function Cartes({ colonneId, tableauId }) {
   const [note, setNote] = useState([]);
-  const [selectedNote, setSelectedNote] = useState(null);
+  const [selectedNote, setSelectedNote] = useState(false);
   const [context, dispatch] = useTodoProvider();
 
-//   console.log("note", colonneId + "+" + tableauId);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,22 +20,22 @@ export default function Cartes({ colonneId, tableauId }) {
       }
     };
     fetchData();
-  }, []);
+  },[note]);
 
-  const supprimerNote = async (elem) => {
-    try {
-      const response = await axios.put(`http://localhost:3010/supprimerNote/${tableauId}/${colonneId}`, {
-        note: {
-          name: elem.name
-        }
-      });
+const supprimerNote = async (elem) => {
+  try {
+    await axios.put(`http://localhost:3010/supprimerNote/${tableauId}/${colonneId}`, {
+      note: {
+        name: elem.name
+      }
+    });
 
-    //   console.log("data", response.data);
-      dispatch({ type: "setListNotes", payload: response.data });
-    } catch (error) {
-      console.error('Erreur lors de la suppression de la note', error);
-    }
-  };
+    const updatedNotes = context.listNotes.filter((elem) => elem._id !== elem._id);
+    dispatch({ type: "setListNote", payload: updatedNotes });
+  } catch (error) {
+    console.error('Erreur lors de la suppression de la note', error);
+  }
+};
 
   const toggleDetails = (noteId) => {
     if (selectedNote === noteId) {
@@ -46,6 +45,10 @@ export default function Cartes({ colonneId, tableauId }) {
     }
   };
 
+
+
+
+
   return (
     <section className="Note">
       <h2>Mes notes :</h2>
@@ -54,7 +57,7 @@ export default function Cartes({ colonneId, tableauId }) {
           {note.map((elem) => (
             <div key={elem._id}>
               <p>Nom : {elem.name}</p>
-              <button onClick={() => toggleDetails(elem._id)}>
+               <button onClick={() => toggleDetails(elem._id)}>
                 {selectedNote === elem._id ? "Masquer les détails" : "Voir les détails"}
               </button>
               {selectedNote === elem._id && (

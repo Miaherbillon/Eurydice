@@ -10,27 +10,29 @@ export default function CarteId({ colonneId, tableauId }) {
   const [nouvelleNoteColor, setNouvelleNoteColor] = useState('');
   const [context, dispatch] = useTodoProvider();
 
-  // console.log("create carte",context.listNotes);
+console.log(tableauId)
 
-  const ajouterNote = async () => {
+  const ajouterNote = async (e) => {
+    e.preventDefault()
     try {
       const response = await axios.put(`http://localhost:3010/ajouterNote/${tableauId}`, {
-        colonneId: colonneId,
+         colonneId: colonneId,
         name: nouvelleNoteName,
         quantity: nouvelleNoteQuantity,
         color: nouvelleNoteColor,
       });
-      // console.log("createcarte",response.data.nouvelleNoteObj);
+      console.log("createcarte",response.data);
 
       if (response.data) {
         setNouvelleNoteName('');
         setNouvelleNoteQuantity(0);
         setNouvelleNoteColor('');
           
-        const nouvelleNote = [...context.listNotes, {data: response.data.nouvelleNoteObj }];
-
-        dispatch({ type: 'setListNotes', payload: nouvelleNote });
-      }
+        const nouvelleNote = [...context.listNotes, response.data.nouvelleNoteObj ];
+        dispatch({ type: 'setListNote', payload: nouvelleNote });
+      } 
+      
+   
     } catch (error) {
       console.error("Erreur lors de l'ajout de la note", error);
     }

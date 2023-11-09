@@ -19,7 +19,7 @@ useEffect(() => {
   };
 
   fetchData();
-}, [dispatch]);
+}, []);
 
 
   // console.log("context", context);

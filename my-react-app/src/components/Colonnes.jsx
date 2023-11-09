@@ -8,7 +8,7 @@ export default function Colonnes({ colonnes, id }) {
   const [nouveauName, setNouveauName] = useState('');
   const[ context, dispatch]  = useTodoProvider();
 
-console.log("context",context)
+
 
   useEffect(() => { 
     const fetchData = async () => {
@@ -20,7 +20,7 @@ console.log("context",context)
       }
     };
     fetchData();
-  }, [context.listNotes]);
+  }, []);
 
 const ajouterColonne = async () => {
   try {
@@ -29,7 +29,7 @@ const ajouterColonne = async () => {
       notes: []
     });
 
-    console.log(resp.data);
+    // console.log(resp.data);
 
     const nouvelleColonne = [...colonnes, { name: resp.data.name, _id: resp.data._id }];
     dispatch({ type: 'setListColonnes', payload: nouvelleColonne });
@@ -57,7 +57,7 @@ const ajouterColonne = async () => {
   };
 
 
-  console.log(colonnes)
+  // console.log(colonnes)
   return (
     <section className="Colonnes">
       <div className="blocAjoutColonne">
