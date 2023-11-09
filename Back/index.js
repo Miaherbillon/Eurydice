@@ -17,10 +17,14 @@ mongoose.connect(
 );
 
 const tableauRoute = require("./Routes/Tableau");
+const colonneRoute = require("./Routes/Colonne")
+const noteRoute = require("./Routes/Note")
 app.use(tableauRoute);
+app.use(colonneRoute)
+app.use(noteRoute)
 
 app.get('*', (req, res) => {
-    res.json({ message: "Cette route n'existe pas" });
+  res.json({ message: "Cette route n'existe pas" });
 });
 
 const PORT = 3010;
