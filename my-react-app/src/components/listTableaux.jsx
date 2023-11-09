@@ -6,7 +6,7 @@ export default function Liste({ tableaux }) {
   const [nouveauTableau, setNouveauTableau] = useState('');
   const [context, dispatch ] = useTodoProvider();
 
-  // console.log("liste",context);
+
 
   const ajouterTableau = async () => {
     try {
@@ -39,19 +39,6 @@ export default function Liste({ tableaux }) {
     <div>
       <section className="Liste">
         <h2>Mes tableaux</h2>
-        <div className="ListeCarteMap">
-          {tableaux.map((tableau, index) => (
-            <div key={tableau._id}>
-              <button className="buttonName" onClick={() => afficherMessage(tableau)}>
-                {tableau.name}
-              </button>
-              <button onClick={() => supprimeTableau(tableau)}>
-                X
-              </button>
-            </div>
-          ))}
-        </div>
-
         <div className="nouveauTableau">
           <input
             type="text"
@@ -61,6 +48,20 @@ export default function Liste({ tableaux }) {
           />
           <button onClick={ajouterTableau}>Créer un tableau</button>
         </div>
+        <div className="ListeCarteMap">
+          {tableaux.map((tableau, index) => (
+            <div key={tableau._id}>
+              <button className="buttonName" onClick={() => afficherMessage(tableau)}>
+                {tableau.name}
+              </button>
+              <button className='buttonDelete' onClick={() => supprimeTableau(tableau)}>
+                X
+              </button>
+            </div>
+          ))}
+        </div>
+
+        
       </section>
     </div>
   );

@@ -3,11 +3,13 @@ import axios from 'axios';
 import Liste from "./components/listTableaux.jsx";
 import Colonnes from "./components/Colonnes.jsx";
 import { useTodoProvider } from "./Util/Context.jsx";
+import "./css/Liste.css"
+import "./css/Colonnes.css"
 
 function App() {
   const [ context, dispatch] = useTodoProvider();
 
-// console.log("app", context)
+
 useEffect(() => {
   const fetchData = async () => {
     try {
@@ -22,7 +24,7 @@ useEffect(() => {
 }, []);
 
 
-  // console.log("context", context);
+
 
   return (
     <div className="container">
@@ -35,7 +37,8 @@ useEffect(() => {
   context.listTab &&
   context.listTab.length > 0 &&
   context.listTab.map((tableau) => {
-    // console.log("tab", tableau);
+
+
     if (context.selectedTab && tableau._id === context.selectedTab) {
       return (
         <div key={tableau._id}>

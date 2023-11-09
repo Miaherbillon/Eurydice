@@ -52,13 +52,13 @@ const supprimerNote = async (elemToDelete) => {
 
 
   return (
-    <section className="Note">
+    <section className="Notes">
       <h2>Mes notes :</h2>
       <section>
-        <div>
+        <div >
           {note.map((elem) => (
-            <div key={elem._id}>
-              <p>Nom : {elem.name}</p>
+            <div key={elem._id} className="note">
+              <h4>{elem.name}</h4>
                <button onClick={() => toggleDetails(elem._id)}>
                 {selectedNote === elem._id ? "Masquer les détails" : "Voir les détails"}
               </button>

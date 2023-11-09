@@ -1,0 +1,116 @@
+.Colonnes {
+  width: 60vw;
+  background-color: white;
+  border: 5px solid rgba(0, 0, 0, 0.359);
+  border-radius: 2rem;
+  padding: 3vw;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.Colonnes .containerColonnes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  text-align: center;
+  margin-top: 2rem;
+  /* border: 1px solid red; */
+}
+
+.Colonnes .containerColonnes > div {
+  flex: 28%; 
+  margin: 0.5rem;
+  max-width: 28%;
+  padding: 1rem;
+  border: 5px solid rgba(0, 128, 0, 0.207);
+  background-color: rgba(0, 128, 0, 0.061);;
+  border-radius: 1rem;
+}
+
+.Colonnes .containerColonnes .buttonDelete {
+    background-color: rgba(0, 0, 0, 0.678);
+  color: white;
+  border-radius: 1rem;
+}
+
+.Colonnes .containerColonnes .buttonDelete:hover{
+    background-color: rgba(0, 0, 0, 0.122);
+    color: black;
+    cursor: pointer;
+}
+
+.Colonnes .blocAjoutColonne{
+
+    text-align: center;
+    border-radius: 1rem;
+    border: 5px solid rgba(0, 128, 0, 0.207);
+    background-color: rgba(0, 128, 0, 0.061);;
+    width: 50%;
+    margin: auto ;
+    padding: 1rem 0 ;
+}
+
+.Colonnes .blocAjoutColonne input{
+
+margin: 1rem;
+}
+
+
+/*-------------------------------------*/
+
+.CarteId form{
+display: flex;
+flex-direction: column;
+width:10vw;
+margin: auto;
+}
+.CarteId form input{
+    border: 1px solid rgba(128, 128, 128, 0.398)
+}
+.CarteId form button , .Colonnes .blocAjoutColonne button{
+    border: none;
+    border-radius: 1rem;
+    padding: 0.2rem 0.5rem;
+    background-color: rgba(0, 128, 0, 0.413);
+}
+.CarteId form button:hover , .Colonnes .blocAjoutColonne button:hover{
+     background-color: green;
+    color: white;
+    cursor: pointer;
+}
+
+/*-------------------------------------*/
+
+.Notes {
+    background-color: white;
+    padding: 1rem;
+    margin: 2rem 1rem;
+    border-radius: 1rem;
+    border: 1px solid rgba(128, 128, 128, 0.441);
+}
+.Notes h2{
+    margin: 0;
+}
+.Notes h4{
+font-size: 1.3rem;
+margin: 0;
+margin-bottom: 1rem;
+}
+.Notes .note{
+    background-color: rgba(128, 123, 133, 0.309);
+    color: rgba(0, 128, 0, 0.413);
+    margin: 2rem;
+    border-radius: 1rem;
+    padding: 1rem;
+}
+.Notes button{
+    border: none;
+    border-radius: 1rem;
+    margin: 0.2rem;
+}
+.Notes button:hover{
+  background-color: rgba(128, 123, 133, 0.309);
+    color: red;
+}

@@ -61,9 +61,9 @@ const ajouterColonne = async () => {
   return (
     <section className="Colonnes">
       <div className="blocAjoutColonne">
-        <div>
+   
           <label>
-            Nouvelle colonne
+           Ajouter nouvelle colonne : 
             <input
               type="text"
               value={nouveauName}
@@ -72,17 +72,18 @@ const ajouterColonne = async () => {
             />
             <button onClick={ajouterColonne}>Ajouter une colonne</button>
           </label>
-        </div>
+     
       </div>
      <div className="containerColonnes">
   {colonnes && colonnes.length > 0 ? (
     colonnes.map((colonne) => (
       <div key={colonne._id}>
-        <h3>{colonne.name}</h3>
-        <CreateNote colonneId={colonne._id} tableauId={id}/>
-        <button onClick={() => supprimerColonne(colonne)} className="buttonDelete">
+         <button onClick={() => supprimerColonne(colonne)} className="buttonDelete">
           Supprimer cette colonne
         </button>
+        <h3>{colonne.name}</h3>
+        <CreateNote colonneId={colonne._id} tableauId={id}/>
+       
       </div>
     ))
   ) : (

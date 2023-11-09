@@ -1,28 +1,12 @@
-.Liste{
-  display: flex;
-  flex-direction: column;
-  border: 1px solid red;
-  width: 20vw;
-  text-align: center;
-  padding: 2rem;
-  gap: 1rem;
-}
-.Liste h2{
-  margin: 0;
-}
-
-.Colonnes{
-  display: flex;
-  flex-direction: column;
-  padding: 2rem;
-  border: 5px solid black;
-}
-.containerColonnes{
-  display: flex;
-    
-    gap: 5rem;
+body{
+  background-color: rgb(133, 146, 155);
+  width: 90vw;
+  margin: 5rem auto;
+ 
 }
 .container{
   display: flex;
-  gap: 5rem;
+  flex: auto;
+  gap: 2rem;
+
 }
