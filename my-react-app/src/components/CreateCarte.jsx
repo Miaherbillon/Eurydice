@@ -10,7 +10,7 @@ export default function CarteId({ colonneId, tableauId }) {
   const [nouvelleNoteColor, setNouvelleNoteColor] = useState('');
   const [context, dispatch] = useTodoProvider();
 
-console.log(tableauId)
+
 
   const ajouterNote = async (e) => {
     e.preventDefault()
@@ -21,7 +21,7 @@ console.log(tableauId)
         quantity: nouvelleNoteQuantity,
         color: nouvelleNoteColor,
       });
-      console.log("createcarte",response.data);
+      // console.log("createcarte",response.data);
 
       if (response.data) {
         setNouvelleNoteName('');

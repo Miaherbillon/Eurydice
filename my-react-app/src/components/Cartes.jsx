@@ -22,20 +22,22 @@ export default function Cartes({ colonneId, tableauId }) {
     fetchData();
   },[note]);
 
-const supprimerNote = async (elem) => {
+const supprimerNote = async (elemToDelete) => {
   try {
     await axios.put(`http://localhost:3010/supprimerNote/${tableauId}/${colonneId}`, {
       note: {
-        name: elem.name
+        name: elemToDelete.name
       }
     });
 
-    const updatedNotes = context.listNotes.filter((elem) => elem._id !== elem._id);
+    const updatedNotes = context.listNotes.filter((note) => note._id !== elemToDelete._id);
     dispatch({ type: "setListNote", payload: updatedNotes });
   } catch (error) {
     console.error('Erreur lors de la suppression de la note', error);
   }
 };
+
+
 
   const toggleDetails = (noteId) => {
     if (selectedNote === noteId) {
