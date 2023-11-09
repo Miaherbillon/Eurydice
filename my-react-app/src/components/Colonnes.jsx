@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useTodoProvider } from '../Context.jsx';
-import CreateNote from "./CreateCarte.jsx"
+import { useTodoProvider } from '../Util/Context.jsx';
+import CreateNote from "./createNotes.jsx"
 
 
 export default function Colonnes({ colonnes, id }) {

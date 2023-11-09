@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { useTodoProvider } from '../Context.jsx';
+import { useTodoProvider } from '../Util/Context.jsx';
 import axios from 'axios';
 
-import Note from "./Cartes.jsx"
+import Note from "./Note.jsx"
 
 export default function CarteId({ colonneId, tableauId }) {
   const [nouvelleNoteName, setNouvelleNoteName] = useState('');
