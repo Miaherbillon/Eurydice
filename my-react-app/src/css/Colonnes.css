@@ -8,6 +8,24 @@
   flex-direction: column;
 
 }
+.Colonnes .counter{
+  width: fit-content;
+  margin: auto;
+  text-align: center;
+  font-size: 5rem;
+  animation: colorChange 1s infinite;
+  /* border: 5px solid rgba(128, 128, 128, 0.407); */
+  border-radius: 50%;
+  padding: 1rem 2rem;
+
+}
+
+@keyframes colorChange {
+  0% { color: rgb(0, 4, 255)}
+  50% { color: rgba(255, 0, 0, 0.69); }
+  100% { color: rgb(0, 204, 255)}
+}
+
 
 .Colonnes .containerColonnes {
   display: flex;

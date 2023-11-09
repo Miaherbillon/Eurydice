@@ -16,23 +16,23 @@ export default function CarteId({ colonneId, tableauId }) {
     e.preventDefault()
     try {
       const response = await axios.put(`http://localhost:3010/ajouterNote/${tableauId}`, {
-         colonneId: colonneId,
+        colonneId: colonneId,
         name: nouvelleNoteName,
         quantity: nouvelleNoteQuantity,
         color: nouvelleNoteColor,
       });
-      // console.log("createcarte",response.data);
+
 
       if (response.data) {
         setNouvelleNoteName('');
         setNouvelleNoteQuantity(0);
         setNouvelleNoteColor('');
-          
-        const nouvelleNote = [...context.listNotes, response.data.nouvelleNoteObj ];
+
+        const nouvelleNote = [...context.listNotes, response.data.nouvelleNoteObj];
         dispatch({ type: 'setListNote', payload: nouvelleNote });
-      } 
-      
-   
+      }
+
+
     } catch (error) {
       console.error("Erreur lors de l'ajout de la note", error);
     }
@@ -42,7 +42,7 @@ export default function CarteId({ colonneId, tableauId }) {
 
   return (
     <section className="CarteId">
-     
+
       <div>
         <form>
           <input
@@ -67,8 +67,8 @@ export default function CarteId({ colonneId, tableauId }) {
             Ajouter une note
           </button>
         </form>
-      </div> 
-      <Note colonneId={colonneId} tableauId={tableauId}/>
+      </div>
+      <Note colonneId={colonneId} tableauId={tableauId} />
     </section>
   );
 }

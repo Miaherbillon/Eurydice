@@ -5,7 +5,7 @@ const INITIAL_STATE = {
   },
   listTab: [],
   listColonnes: [],
-  listNotes:[]
+  listNotes: []
 };
 
 export default INITIAL_STATE;

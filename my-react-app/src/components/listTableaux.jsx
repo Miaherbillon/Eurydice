@@ -4,7 +4,7 @@ import { useTodoProvider } from '../Util/Context.jsx';
 
 export default function Liste({ tableaux }) {
   const [nouveauTableau, setNouveauTableau] = useState('');
-  const [context, dispatch ] = useTodoProvider();
+  const [context, dispatch] = useTodoProvider();
 
 
 
@@ -24,12 +24,13 @@ export default function Liste({ tableaux }) {
     console.log(`Le tableau sélectionné est : ${elem._id}`);
   };
 
+
   const supprimeTableau = async (elem) => {
     try {
       console.log("ID de l'élément à supprimer :", elem._id);
       await axios.delete(`http://localhost:3010/supprimer/${elem._id}`);
       const updatedTableaux = tableaux.filter((t) => t._id !== elem._id);
-      dispatch({ type: 'setlistTab', payload: updatedTableaux }); 
+      dispatch({ type: 'setlistTab', payload: updatedTableaux });
     } catch (error) {
       console.error('Erreur lors de la suppression du tableau', error);
     }
@@ -49,7 +50,7 @@ export default function Liste({ tableaux }) {
           <button onClick={ajouterTableau}>Créer un tableau</button>
         </div>
         <div className="ListeCarteMap">
-          {tableaux.map((tableau, index) => (
+          {tableaux.map((tableau) => (
             <div key={tableau._id}>
               <button className="buttonName" onClick={() => afficherMessage(tableau)}>
                 {tableau.name}
@@ -60,8 +61,6 @@ export default function Liste({ tableaux }) {
             </div>
           ))}
         </div>
-
-        
       </section>
     </div>
   );
